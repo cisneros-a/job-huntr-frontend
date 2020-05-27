@@ -14,32 +14,32 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
   },
   button: {
     display: "block",
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
-  }
+    minWidth: 120,
+  },
 }));
 
 export default function LeadForm(props) {
@@ -52,9 +52,10 @@ export default function LeadForm(props) {
 
   const classes = useStyles();
 
-  const API = "https://backend-jobhuntr.herokuapp.com/leads";
+  // const API = "https://backend-jobhuntr.herokuapp.com/leads";
+  const API = "http://localhost:3000/leads";
 
-  let handleSubmit = event => {
+  let handleSubmit = (event) => {
     event.preventDefault();
     console.log(props.currentId);
     let data = {
@@ -63,22 +64,23 @@ export default function LeadForm(props) {
       location: location,
       description: description,
       status: status,
-      user_id: props.currentId
+      user_id: props.currentId,
     };
 
-    fetch(API, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-      .then(response => console.log(response))
-      .then(props.newFetch());
+    props.addNewLead(data);
+    // fetch(API, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then((response) => console.log(response))
+    //   .then(props.newFetch());
   };
 
-  const handleStatusChange = event => {
+  const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
   const handleClose = () => {
@@ -88,16 +90,16 @@ export default function LeadForm(props) {
     setOpen(true);
   };
 
-  let handleTitleChange = event => {
+  let handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
-  let handleCompanyChange = event => {
+  let handleCompanyChange = (event) => {
     setCompany(event.target.value);
   };
-  let handleLocationChange = event => {
+  let handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
-  let handleDescriptionChange = event => {
+  let handleDescriptionChange = (event) => {
     setDescription(event.target.value);
   };
 
@@ -110,14 +112,14 @@ export default function LeadForm(props) {
           Add a job lead
         </Typography>
         <form
-          onSubmit={event => handleSubmit(event)}
+          onSubmit={(event) => handleSubmit(event)}
           className={classes.form}
           noValidate
         >
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
-                onChange={event => {
+                onChange={(event) => {
                   handleTitleChange(event);
                 }}
                 autoComplete="Job Title"
@@ -133,7 +135,7 @@ export default function LeadForm(props) {
 
             <Grid item xs={6}>
               <TextField
-                onChange={event => {
+                onChange={(event) => {
                   handleCompanyChange(event);
                 }}
                 variant="outlined"
@@ -147,7 +149,7 @@ export default function LeadForm(props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                onChange={event => {
+                onChange={(event) => {
                   handleLocationChange(event);
                 }}
                 variant="outlined"
@@ -162,7 +164,7 @@ export default function LeadForm(props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                onChange={event => {
+                onChange={(event) => {
                   handleDescriptionChange(event);
                 }}
                 variant="outlined"

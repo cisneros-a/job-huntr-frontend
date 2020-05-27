@@ -25,24 +25,24 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 export default function SignIn(props) {
@@ -51,34 +51,35 @@ export default function SignIn(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  let handleEmailChange = event => {
+  let handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
-  let handlePasswordChange = event => {
+  let handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+  const API = "http://localhost:3000/login";
 
-  const API = "https://backend-jobhuntr.herokuapp.com/login";
+  // const API = "https://backend-jobhuntr.uapp.com/login";
 
-  let handleSubmit = event => {
+  let handleSubmit = (event) => {
     event.preventDefault();
     console.log(`${email}, ${password}`);
 
     let user = {
       email: email,
-      password: password
+      password: password,
     };
 
     fetch(API, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
+        Accept: "application/json",
       },
-      body: JSON.stringify({ user })
+      body: JSON.stringify({ user }),
     })
-      .then(res => res.json())
-      .then(data => props.handleLogin(data));
+      .then((res) => res.json())
+      .then((data) => props.handleLogin(data));
   };
 
   return (
@@ -92,12 +93,12 @@ export default function SignIn(props) {
           Sign in
         </Typography>
         <form
-          onSubmit={event => handleSubmit(event)}
+          onSubmit={(event) => handleSubmit(event)}
           className={classes.form}
           noValidate
         >
           <TextField
-            onChange={event => {
+            onChange={(event) => {
               handleEmailChange(event);
             }}
             variant="outlined"
@@ -111,7 +112,7 @@ export default function SignIn(props) {
             autoFocus
           />
           <TextField
-            onChange={event => {
+            onChange={(event) => {
               handlePasswordChange(event);
             }}
             variant="outlined"

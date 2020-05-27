@@ -6,20 +6,19 @@ import Signup from "./components/Signup.js";
 import Dashboard from "./components/Dashboard.js";
 import AppBar from "@material-ui/core/AppBar";
 
-
 class App extends React.Component {
   state = {
     loggedIn: false,
     currentName: "",
-    currentId: ""
+    currentId: "",
   };
 
-  handleLogin = user => {
+  handleLogin = (user) => {
     if (user.jwt) {
       this.setState({
         loggedIn: true,
         currentName: user.user.user.name,
-        currentId: user.user.user.id
+        currentId: user.user.user.id,
       });
     } else {
       alert("Invalid email or password");
@@ -30,43 +29,38 @@ class App extends React.Component {
     this.setState({
       loggedIn: false,
       currentName: "",
-      currentId: ""
-    })
-  }
-  
-
- 
+      currentId: "",
+    });
+  };
 
   render() {
     return (
       <Router>
         <div>
-         
           {this.state.loggedIn === true ? (
             <div>
               <Dashboard
-              handleLogout={this.handleLogout}
-              currentName={this.state.currentName} 
-               currentId={this.state.currentId} />
+                handleLogout={this.handleLogout}
+                currentName={this.state.currentName}
+                currentId={this.state.currentId}
+              />
             </div>
           ) : (
-            
             <div>
               <AppBar color="primary" position="static">
-          <h1>Job Huntr</h1>
-        </AppBar>
+                <h1>Job Huntr</h1>
+              </AppBar>
               <Route
-              
                 exact
                 path="/"
-                render={props => (
+                render={(props) => (
                   <Signup {...props} handleLogin={this.handleLogin} />
                 )}
               />
               <Route
                 exact
                 path="/signin"
-                render={props => (
+                render={(props) => (
                   <Signin {...props} handleLogin={this.handleLogin} />
                 )}
               />
