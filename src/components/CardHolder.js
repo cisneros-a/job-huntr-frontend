@@ -1,15 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import LeadCard from "./LeadCard";
 
-export default class CardHolder extends Component {
-  render() {
-    return this.props.leads.map(lead => (
-      <div className="CardHolder">
-        <LeadCard
-          key={lead.id}
-          handleCardClick={this.props.handleCardClick}
-          lead={lead} />
-      </div>
-    ));
-  }
+export default function CardHolder(props) {
+  console.log("props", props);
+  return props.leads.map((lead) => (
+    <div className="CardHolder">
+      <LeadCard
+        key={lead}
+        handleCardClick={props.handleCardClick}
+        lead={lead}
+      />
+    </div>
+  ));
 }

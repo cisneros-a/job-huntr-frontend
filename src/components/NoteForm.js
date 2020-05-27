@@ -12,24 +12,24 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 export default function NoteForm(props) {
@@ -37,22 +37,23 @@ export default function NoteForm(props) {
 
   const [note, setNote] = useState("");
 
-  let handleNoteChange = event => {
+  let handleNoteChange = (event) => {
     setNote(event.target.value);
   };
 
-  const API = "https://backend-jobhuntr.herokuapp.com/notes";
+  // const API = "https://backend-jobhuntr.herokuapp.com/notes";
+  const API = "http://localhost:3000/notes";
 
-  let handleSubmit = event => {
+  let handleSubmit = (event) => {
     event.preventDefault();
 
     fetch(API, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
+        Accept: "application/json",
       },
-      body: JSON.stringify({ lead_id: props.leadId, content: note })
+      body: JSON.stringify({ lead_id: props.leadId, content: note }),
     })
       .then(props.getLeadNotes())
       .then(setNote(""));
@@ -67,12 +68,12 @@ export default function NoteForm(props) {
         </Avatar>
 
         <form
-          onSubmit={event => handleSubmit(event)}
+          onSubmit={(event) => handleSubmit(event)}
           className={classes.form}
           noValidate
         >
           <TextField
-            onChange={event => {
+            onChange={(event) => {
               handleNoteChange(event);
             }}
             variant="outlined"

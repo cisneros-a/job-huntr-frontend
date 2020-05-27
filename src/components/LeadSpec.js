@@ -10,25 +10,27 @@ import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
 import ChatBubbleSharpIcon from "@material-ui/icons/ChatBubbleSharp";
 import Grid from "@material-ui/core/Grid";
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   root: {
     "& > *": {
-      margin: theme.spacing(1)
-    }
+      margin: theme.spacing(1),
+    },
   },
   extendedIcon: {
-    marginRight: theme.spacing(1)
-  }
+    marginRight: theme.spacing(1),
+  },
 }));
 
 export default function Leadspec(props) {
-  const API = "https://backend-jobhuntr.herokuapp.com/notes";
+  // const API = "https://backend-jobhuntr.herokuapp.com/notes";
+  const API = "http://localhost:3000/notes";
+
   const [data, setData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [statusClicked, setStatusClicked] = useState(false);
@@ -40,9 +42,9 @@ export default function Leadspec(props) {
 
   let getLeadNotes = () => {
     fetch(API)
-      .then(res => res.json())
-      .then(data => {
-        setData(data.filter(note => note.lead_id === props.lead.id));
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.filter((note) => note.lead_id === props.lead.id));
       });
   };
 
@@ -53,6 +55,7 @@ export default function Leadspec(props) {
     setStatusClicked(!statusClicked);
   };
 
+  console.log(props.lead);
   return (
     <Fragment>
       <Grid
@@ -85,7 +88,10 @@ export default function Leadspec(props) {
       {statusClicked === true ? (
         <Grid item size="xs">
           <div>
-            <StatusForm leadId={props.lead.id} newFetch={props.newFetch} />
+            <StatusForm
+              lead={props.lead}
+              handleStatusChange={props.handleStatusChange}
+            />
           </div>
         </Grid>
       ) : (
@@ -95,7 +101,7 @@ export default function Leadspec(props) {
       <h3>Your notes: </h3>
       <Grid item xs={4}>
         <div>
-          {data.map(leadNote => (
+          {data.map((leadNote) => (
             <NoteCard id={leadNote.id} note={leadNote} />
           ))}
         </div>

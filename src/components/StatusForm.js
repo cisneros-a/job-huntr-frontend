@@ -3,9 +3,7 @@ import { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
+
 import Box from "@material-ui/core/Box";
 import AssignmentSharpIcon from "@material-ui/icons/AssignmentSharp";
 import Typography from "@material-ui/core/Typography";
@@ -16,24 +14,24 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "right"
+    alignItems: "right",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 export default function StatusForm(props) {
@@ -41,7 +39,7 @@ export default function StatusForm(props) {
   const [open, setOpen] = useState("");
   const classes = useStyles();
 
-  const handleStatusChange = event => {
+  const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
   const handleClose = () => {
@@ -51,19 +49,22 @@ export default function StatusForm(props) {
     setOpen(true);
   };
 
-  const API = `https://backend-jobhuntr.herokuapp.com/leads/${props.leadId}`;
+  // const API = `https://backend-jobhuntr.herokuapp.com/leads/${props.leadId}`;
+  const API = `http://localhost:3000/leads/${props.lead.id}`;
 
-  let handleSubmit = event => {
+  let handleSubmit = (event) => {
     event.preventDefault();
+    props.lead.status = status;
+    props.handleStatusChange(props.lead);
 
-    fetch(API, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify({ status: status })
-    }).then(props.newFetch());
+    // fetch(API, {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    //   body: JSON.stringify({ status: status }),
+    // }).then(props.newFetch());
   };
 
   return (
@@ -77,7 +78,7 @@ export default function StatusForm(props) {
           {/* Sign in */}
         </Typography>
         <form
-          onSubmit={event => handleSubmit(event)}
+          onSubmit={(event) => handleSubmit(event)}
           className={classes.form}
           noValidate
         >

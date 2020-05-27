@@ -12,24 +12,24 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 export default function Signup(props) {
@@ -38,9 +38,10 @@ export default function Signup(props) {
   const [password, setPassword] = useState("");
   const classes = useStyles();
 
-  const API = "https://backend-jobhuntr.herokuapp.com/users";
+  const API = "http://localhost:3000/users";
+  // const API = "https://backend-jobhuntr.herokuapp.com/users";
 
-  let handleSubmit = event => {
+  let handleSubmit = (event) => {
     event.preventDefault();
     console.log(`${name}, ${email}, ${password}`);
     let user = { name: name, email: email, password: password };
@@ -49,21 +50,21 @@ export default function Signup(props) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
+        Accept: "application/json",
       },
-      body: JSON.stringify({ user })
+      body: JSON.stringify({ user }),
     })
-      .then(res => res.json())
-      .then(data => props.handleLogin(data));
+      .then((res) => res.json())
+      .then((data) => props.handleLogin(data));
   };
 
-  let handleNameChange = event => {
+  let handleNameChange = (event) => {
     setName(event.target.value);
   };
-  let handleEmailChange = event => {
+  let handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
-  let handlePasswordChange = event => {
+  let handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
@@ -78,14 +79,14 @@ export default function Signup(props) {
           Sign up
         </Typography>
         <form
-          onSubmit={event => handleSubmit(event)}
+          onSubmit={(event) => handleSubmit(event)}
           className={classes.form}
           noValidate
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                onChange={event => {
+                onChange={(event) => {
                   handleNameChange(event);
                 }}
                 autoComplete="name"
@@ -101,7 +102,7 @@ export default function Signup(props) {
 
             <Grid item xs={12}>
               <TextField
-                onChange={event => {
+                onChange={(event) => {
                   handleEmailChange(event);
                 }}
                 variant="outlined"
@@ -115,7 +116,7 @@ export default function Signup(props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                onChange={event => {
+                onChange={(event) => {
                   handlePasswordChange(event);
                 }}
                 variant="outlined"
